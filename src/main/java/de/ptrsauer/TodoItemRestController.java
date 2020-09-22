@@ -22,8 +22,8 @@ import org.springframework.web.bind.annotation.RestController;
     , consumes = "application/json")
 public class TodoItemRestController {
 
-  @Autowired
-  TodoItemRepository todoItemRepository;
+//  @Autowired
+//  TodoItemRepository todoItemRepository;
 
   @RequestMapping(value = "/todos", method = RequestMethod.GET)
   @ApiOperation(value = "Get all your ToDo items."
@@ -31,11 +31,11 @@ public class TodoItemRestController {
       , notes = "Here are some notes."
   )
   @ApiResponses({
-      @ApiResponse(code = 200, message = "All your todo items.", responseContainer = "List", response = TodoItem.class)
+      @ApiResponse(code = 200, message = "All your todo items.", responseContainer = "List", response =Object.class)
   })
-  ResponseEntity<Iterable<TodoItem>> getTodoItems() {
-    Iterable<TodoItem> all = todoItemRepository.findAll();
-    return ResponseEntity.ok(all);
+  ResponseEntity<?> getTodoItems() {
+
+    return ResponseEntity.ok().build();
   }
 
   @RequestMapping(value = "/todos/{id}", method = RequestMethod.GET)
@@ -43,19 +43,16 @@ public class TodoItemRestController {
       , produces = "application/json"
   )
   @ApiResponses({
-      @ApiResponse(code = 200, message = "Information on one specific item.", response = TodoItem.class),
+      @ApiResponse(code = 200, message = "Information on one specific item.", response = Object.class),
       @ApiResponse(code = 404, message = "No item for the given id")
   })
-  ResponseEntity<TodoItem> getTodoItem(
+  ResponseEntity<?> getTodoItem(
       @ApiParam(value = "the id of the item"
                 , required = true
                 , name = "ID"
                 , example = "2") @PathVariable String id
   ) {
-    TodoItem todoItem = todoItemRepository.findOne(id);
-    if (todoItem != null) {
-      return ResponseEntity.ok(todoItem);
-    }
+
     return new ResponseEntity<>(HttpStatus.NOT_FOUND);
   }
 }

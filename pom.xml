@@ -66,6 +66,12 @@
 			</plugin>
 		</plugins>
 	</build>
-
+	<distributionManagement>
+		<repository>
+			<id>github</id>
+			<name>GitHub Pratzn Apache Maven Packages</name>
+			<url>https://maven.pkg.github.com/Pratzn/SpringSwaggerTodo</url>
+		</repository>
+	</distributionManagement>
 
 </project>
